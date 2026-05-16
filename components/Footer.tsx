@@ -1,13 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, SVGProps, useState } from "react";
+import type { FormEvent, SVGProps } from "react";
+import { useState } from "react";
 
 const quickLinks = [
   { label: "Home", href: "/" },
   { label: "Products", href: "/products" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
+];
+
+const contact = {
+  phone: "03212910823",
+  phoneHref: "tel:03212910823",
+  email: "sales@shakeelintl.com",
+  emailHref: "mailto:sales@shakeelintl.com",
+  address: "Sargodha, Punjab, Pakistan",
+};
+
+const legalLinks = [
+  { label: "Terms", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
 ];
 
 const FacebookIcon = (props: SVGProps<SVGSVGElement>) => (
@@ -28,17 +42,25 @@ const LinkedinIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const YouTubeIcon = (props: SVGProps<SVGSVGElement>) => (
+const InstagramIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-    <path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.6 4.6 12 4.6 12 4.6s-5.6 0-7.5.5a3 3 0 0 0-2.1 2.1C2 9.1 2 12 2 12s0 2.9.4 4.8a3 3 0 0 0 2.1 2.1c1.9.5 7.5.5 7.5.5s5.6 0 7.5-.5a3 3 0 0 0 2.1-2.1c.4-1.9.4-4.8.4-4.8s0-2.9-.4-4.8ZM10 15.4V8.6l5.9 3.4-5.9 3.4Z" />
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
   </svg>
 );
 
 const socialLinks = [
-  { label: "Facebook", icon: FacebookIcon },
-  { label: "X", icon: XIcon },
-  { label: "LinkedIn", icon: LinkedinIcon },
-  { label: "YouTube", icon: YouTubeIcon },
+  { label: "Facebook", href: "https://www.facebook.com/", icon: FacebookIcon },
+  { label: "X", href: "https://x.com/", icon: XIcon },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/ali-gondal-a2148b372/",
+    icon: LinkedinIcon,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/shakeel_international/",
+    icon: InstagramIcon,
+  },
 ];
 
 const footerStyles = `
@@ -65,15 +87,26 @@ const footerStyles = `
     margin-bottom: 18px;
   }
   .site-footer-col p,
-  .site-footer-col a {
+  .site-footer-link,
+  .site-footer-contact-link {
     font-size: 0.84rem;
     line-height: 2;
     color: rgba(255,255,255,0.65);
     text-decoration: none;
-    display: block;
     transition: color 0.2s;
   }
-  .site-footer-col a:hover { color: var(--pink-mid); }
+  .site-footer-link {
+    display: block;
+  }
+  .site-footer-contact-link {
+    display: inline;
+    overflow-wrap: anywhere;
+  }
+  .site-footer-link:hover,
+  .site-footer-contact-link:hover { color: var(--pink-mid); }
+  .site-newsletter-copy {
+    margin-bottom: 12px;
+  }
   .site-newsletter-form {
     display: flex;
     gap: 0;
@@ -92,6 +125,9 @@ const footerStyles = `
     font-family: 'Jost', sans-serif;
     outline: none;
   }
+  .site-newsletter-input:focus {
+    border-color: rgba(245,197,184,0.6);
+  }
   .site-newsletter-input::placeholder { color: rgba(255,255,255,0.35); }
   .site-newsletter-btn {
     padding: 10px 16px;
@@ -103,7 +139,8 @@ const footerStyles = `
     font-size: 1rem;
     transition: background 0.2s;
   }
-  .site-newsletter-btn:hover { background: var(--rose-dark); }
+  .site-newsletter-btn:hover,
+  .site-newsletter-btn:focus-visible { background: var(--rose-dark); }
   .site-social-icons {
     display: flex;
     flex-wrap: wrap;
@@ -134,6 +171,14 @@ const footerStyles = `
     border-color: var(--rose);
     color: #fff;
     transform: translateY(-2px);
+  }
+  .site-social-icon:focus-visible,
+  .site-footer-link:focus-visible,
+  .site-footer-contact-link:focus-visible,
+  .site-footer-bottom-links a:focus-visible,
+  .site-newsletter-btn:focus-visible {
+    outline: 2px solid var(--pink-mid);
+    outline-offset: 3px;
   }
   .site-footer-bottom {
     border-top: 1px solid rgba(255,255,255,0.08);
@@ -168,6 +213,7 @@ const footerStyles = `
     .site-footer { padding: 44px 20px 24px; }
     .site-footer-grid { grid-template-columns: 1fr; gap: 30px; }
     .site-newsletter-form { max-width: 100%; }
+    .site-newsletter-input { width: 100%; }
     .site-footer-bottom {
       flex-direction: column;
       align-items: flex-start;
@@ -194,21 +240,24 @@ export default function FooterSection() {
           <div className="site-footer-col">
             <h4>Contact Us</h4>
             <p>
-              Phone: <a href="tel:03212910823">03212910823</a>
-            </p>
-            <p>
-              Email:{" "}
-              <a href="mailto:sales@shakeelintl.com">
-                sales@shakeelintl.com
+              <span>Phone: </span>
+              <a className="site-footer-contact-link" href={contact.phoneHref}>
+                {contact.phone}
               </a>
             </p>
-            <p>Address: Sargodha, Punjab, Pakistan</p>
+            <p>
+              <span>Email: </span>
+              <a className="site-footer-contact-link" href={contact.emailHref}>
+                {contact.email}
+              </a>
+            </p>
+            <p>Address: {contact.address}</p>
           </div>
 
           <div className="site-footer-col">
             <h4>Quick Links</h4>
             {quickLinks.map((link) => (
-              <Link href={link.href} key={link.href}>
+              <Link className="site-footer-link" href={link.href} key={link.href}>
                 {link.label}
               </Link>
             ))}
@@ -216,28 +265,37 @@ export default function FooterSection() {
 
           <div className="site-footer-col">
             <h4>Newsletter</h4>
-            <p style={{ marginBottom: "12px" }}>
+            <p className="site-newsletter-copy">
               Subscribe for updates and exclusive offers.
             </p>
             <form className="site-newsletter-form" onSubmit={handleSubmit}>
               <input
                 type="email"
+                name="newsletter-email"
                 className="site-newsletter-input"
                 placeholder="Email address"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
+                required
+                aria-label="Newsletter email address"
               />
-              <button type="submit" className="site-newsletter-btn">
-                →
+              <button
+                type="submit"
+                className="site-newsletter-btn"
+                aria-label="Subscribe to newsletter"
+              >
+                &rarr;
               </button>
             </form>
             <div className="site-social-icons">
-              {socialLinks.map(({ icon: Icon, label }) => (
+              {socialLinks.map(({ href, icon: Icon, label }) => (
                 <a
-                  href="#"
+                  href={href}
                   className="site-social-icon"
                   key={label}
                   aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <Icon />
                 </a>
@@ -247,10 +305,13 @@ export default function FooterSection() {
         </div>
 
         <div className="site-footer-bottom">
-          <p>Copyright © Shakeel International</p>
+          <p>Copyright &copy; Shakeel International</p>
           <div className="site-footer-bottom-links">
-            <a href="#">Terms</a>
-            <a href="#">Privacy Policy</a>
+            {legalLinks.map((link) => (
+              <Link href={link.href} key={link.href}>
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
       </footer>
