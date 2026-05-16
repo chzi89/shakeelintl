@@ -1,219 +1,387 @@
 "use client";
 
-import React, { useState } from "react";
-// Local lightweight SVG icon components to replace `lucide-react` dependency
-const IconBase = ({ children, className, style }: React.SVGProps<SVGSVGElement> & { children: React.ReactNode }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-    style={style}
-  >
-    {children}
-  </svg>
-);
-
-const Phone = (props: React.SVGProps<SVGSVGElement>) => (
-  <IconBase {...props}>
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 3.08 4.18 2 2 0 0 1 5 2h3a2 2 0 0 1 2 1.72c.12.86.36 1.7.7 2.5a2 2 0 0 1-.45 2.11L9.91 9.91a16 16 0 0 0 6 6l1.58-1.58a2 2 0 0 1 2.11-.45c.8.34 1.64.58 2.5.7A2 2 0 0 1 22 16.92z" />
-  </IconBase>
-);
-
-const Mail = (props: React.SVGProps<SVGSVGElement>) => (
-  <IconBase {...props}>
-    <path d="M3 8.5v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-    <path d="M21 8.5l-9 6-9-6" />
-  </IconBase>
-);
-
-const Linkedin = (props: React.SVGProps<SVGSVGElement>) => (
-  <IconBase {...props}>
-    <rect x="2" y="3" width="20" height="18" rx="2" ry="2" />
-    <path d="M7 10v7" />
-    <path d="M7 7v.01" />
-    <path d="M12 17v-4a2 2 0 0 1 4 0v4" />
-  </IconBase>
-);
-
-const Instagram = (props: React.SVGProps<SVGSVGElement>) => (
-  <IconBase {...props}>
-    <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <path d="M17.5 6.5h.01" />
-  </IconBase>
-);
-
-const Facebook = (props: React.SVGProps<SVGSVGElement>) => (
-  <IconBase {...props}>
-    <path d="M22 12a10 10 0 1 0-11.5 9.87v-6.99H8.9V12h1.6V9.8c0-1.58.94-2.46 2.38-2.46.69 0 1.41.12 1.41.12v1.55h-.79c-.78 0-1.02.49-1.02.99V12h1.74l-.28 2.88h-1.46v6.99A10 10 0 0 0 22 12z" />
-  </IconBase>
-);
+import { useState } from "react";
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Contact form:", form);
+  const handleSubmit = () => {
+    setSubmitted(true);
   };
 
   return (
-    <main className="min-h-screen bg-white font-sans">
-      {/* Hero */}
-      <section
-        className="relative overflow-hidden px-6 py-20 text-center"
-        style={{ backgroundColor: "#fce8e3" }}
-      >
-        <div
-          className="absolute -left-24 -top-24 h-64 w-64 rounded-full opacity-60"
-          style={{ backgroundColor: "#f8d4cc" }}
-        />
-        <div
-          className="absolute -right-32 top-10 h-72 w-72 rounded-full opacity-50"
-          style={{ backgroundColor: "#f8d4cc" }}
-        />
-        <div className="relative mx-auto max-w-3xl">
-          <h1
-            className="font-serif text-5xl font-bold md:text-6xl"
-            style={{ color: "#1a1a1a" }}
-          >
-            Contact Us
+    <>
+      <style jsx>{`
+        @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap");
+
+        .si-wrap {
+          font-family: "Jost", sans-serif;
+          color: #3a2520;
+          padding: 40px 20px;
+          background: #fdf7f4;
+        }
+
+        .si-hero {
+          background: #3d1f1a;
+          border-radius: 20px;
+          padding: 2.5rem 2rem 2rem;
+          margin-bottom: 1.5rem;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .si-hero::before {
+          content: "";
+          position: absolute;
+          top: -40px;
+          right: -40px;
+          width: 180px;
+          height: 180px;
+          border-radius: 50%;
+          background: rgba(212, 130, 114, 0.12);
+        }
+
+        .si-hero::after {
+          content: "";
+          position: absolute;
+          bottom: -30px;
+          left: 20px;
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          background: rgba(212, 130, 114, 0.08);
+        }
+
+        .si-hero-tag {
+          display: inline-block;
+          font-size: 10px;
+          font-weight: 600;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #e8a898;
+          border: 1px solid rgba(232, 168, 152, 0.4);
+          border-radius: 50px;
+          padding: 4px 12px;
+          margin-bottom: 12px;
+        }
+
+        .si-hero h1 {
+          font-family: "Playfair Display", serif;
+          font-size: 32px;
+          font-weight: 600;
+          color: #fdf8f4;
+          margin-bottom: 10px;
+        }
+
+        .si-hero h1 em {
+          color: #e8a898;
+        }
+
+        .si-hero p {
+          color: rgba(253, 248, 244, 0.7);
+          max-width: 500px;
+          line-height: 1.7;
+        }
+
+        .si-grid {
+          display: grid;
+          grid-template-columns: 1fr 320px;
+          gap: 20px;
+        }
+
+        .si-form-card,
+        .si-info-card,
+        .si-social-card {
+          background: white;
+          border-radius: 18px;
+          padding: 24px;
+          border: 1px solid #eee;
+        }
+
+        .si-form-title {
+          font-family: "Playfair Display", serif;
+          font-size: 24px;
+          margin-bottom: 6px;
+        }
+
+        .si-form-sub {
+          color: #777;
+          margin-bottom: 24px;
+        }
+
+        .si-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 14px;
+        }
+
+        .si-field {
+          margin-bottom: 14px;
+        }
+
+        .si-label {
+          display: block;
+          margin-bottom: 6px;
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          color: #777;
+        }
+
+        .si-input,
+        .si-select,
+        .si-textarea {
+          width: 100%;
+          padding: 12px;
+          border-radius: 10px;
+          border: 1px solid #ddd;
+          background: #fafafa;
+          font-size: 14px;
+          outline: none;
+        }
+
+        .si-input:focus,
+        .si-select:focus,
+        .si-textarea:focus {
+          border-color: #c4614f;
+        }
+
+        .si-textarea {
+          min-height: 120px;
+          resize: vertical;
+        }
+
+        .si-submit {
+          width: 100%;
+          padding: 14px;
+          border: none;
+          border-radius: 12px;
+          background: #3d1f1a;
+          color: white;
+          cursor: pointer;
+          font-weight: 600;
+          transition: 0.3s;
+        }
+
+        .si-submit:hover {
+          background: #5c2e26;
+        }
+
+        .si-sidebar {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .si-info-row {
+          margin-bottom: 16px;
+        }
+
+        .si-info-label {
+          font-size: 12px;
+          text-transform: uppercase;
+          color: #888;
+          margin-bottom: 4px;
+        }
+
+        .si-info-val {
+          font-size: 14px;
+        }
+
+        .si-social-links {
+          display: flex;
+          gap: 10px;
+        }
+
+        .si-social-btn {
+          flex: 1;
+          text-align: center;
+          padding: 10px;
+          border-radius: 10px;
+          border: 1px solid #ddd;
+          text-decoration: none;
+          color: #444;
+          transition: 0.3s;
+        }
+
+        .si-social-btn:hover {
+          background: #faece7;
+          border-color: #c4614f;
+          color: #c4614f;
+        }
+
+        .success-box {
+          text-align: center;
+          padding: 30px 10px;
+        }
+
+        .success-box h3 {
+          font-size: 24px;
+          margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+          .si-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .si-row {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
+
+      <div className="si-wrap">
+        <div className="si-hero">
+          <div className="si-hero-tag">
+            ✦ Khewra Salt Mines, Pakistan
+          </div>
+
+          <h1>
+            Connect with <em>Shakeel International</em>
           </h1>
-          <p className="mt-4 text-lg md:text-xl" style={{ color: "#3a3a3a" }}>
-            Reach out for inquiries about our premium pink salt exports
+
+          <p>
+            Your trusted partner for premium Himalayan pink salt
+            exports worldwide.
           </p>
         </div>
-      </section>
 
-      {/* Form + Info */}
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-10 md:grid-cols-3">
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="md:col-span-2 space-y-5">
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div>
-                <label className="mb-2 block text-sm font-medium text-gray-800">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  placeholder="Your Name"
-                  className="w-full rounded-md border border-[#f5c4ba] bg-white px-4 py-3 text-sm outline-none placeholder:text-gray-400 focus:border-[#e88a7a]"
-                />
-              </div>
-              <div>
-                <label className="mb-2 block text-sm font-medium text-gray-800">
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  placeholder="Your Email"
-                  className="w-full rounded-md border border-[#f5c4ba] bg-white px-4 py-3 text-sm outline-none placeholder:text-gray-400 focus:border-[#e88a7a]"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="mb-2 block text-sm font-medium text-gray-800">
-                Message
-              </label>
-              <textarea
-                required
-                rows={6}
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                placeholder="Message"
-                className="w-full rounded-md border border-[#f5c4ba] bg-white px-4 py-3 text-sm outline-none placeholder:text-gray-400 focus:border-[#e88a7a]"
-              />
-            </div>
-            <button
-              type="submit"
-              className="rounded-md px-8 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-              style={{ backgroundColor: "#e88a7a" }}
-            >
-              Send Message
-            </button>
-          </form>
+        <div className="si-grid">
+          <div className="si-form-card">
+            {!submitted ? (
+              <>
+                <h2 className="si-form-title">Send an inquiry</h2>
 
-          {/* Info Card */}
-          <aside className="rounded-lg border border-[#f5c4ba] bg-white overflow-hidden h-fit">
-            <div
-              className="px-6 py-3 text-center text-base font-medium"
-              style={{ backgroundColor: "#f8c8bd", color: "#1a1a1a" }}
-            >
-              Get in Touch
-            </div>
-            <div className="flex items-center gap-3 px-6 py-4">
-              <Phone className="h-6 w-6" style={{ color: "#e88a7a" }} />
-              <div className="text-sm">
-                <div className="font-semibold text-gray-900">Phone:</div>
-                <div className="text-gray-700">+92 300 1234567</div>
+                <p className="si-form-sub">
+                  For bulk orders and partnership requests
+                </p>
+
+                <div className="si-row">
+                  <div className="si-field">
+                    <label className="si-label">Full Name</label>
+
+                    <input
+                      type="text"
+                      className="si-input"
+                      placeholder="Your name"
+                    />
+                  </div>
+
+                  <div className="si-field">
+                    <label className="si-label">Company</label>
+
+                    <input
+                      type="text"
+                      className="si-input"
+                      placeholder="Company name"
+                    />
+                  </div>
+                </div>
+
+                <div className="si-row">
+                  <div className="si-field">
+                    <label className="si-label">Email</label>
+
+                    <input
+                      type="email"
+                      className="si-input"
+                      placeholder="you@company.com"
+                    />
+                  </div>
+
+                  <div className="si-field">
+                    <label className="si-label">Country</label>
+
+                    <input
+                      type="text"
+                      className="si-input"
+                      placeholder="Your country"
+                    />
+                  </div>
+                </div>
+
+                <div className="si-field">
+                  <label className="si-label">Message</label>
+
+                  <textarea
+                    className="si-textarea"
+                    placeholder="Tell us about your requirements..."
+                  />
+                </div>
+
+                <button
+                  className="si-submit"
+                  onClick={handleSubmit}
+                >
+                  Send Inquiry
+                </button>
+              </>
+            ) : (
+              <div className="success-box">
+                <h3>Inquiry Received ✅</h3>
+
+                <p>
+                  Thank you! Our team will contact you
+                  within 24 hours.
+                </p>
+              </div>
+            )}
+          </div>
+
+          <div className="si-sidebar">
+            <div className="si-info-card">
+              <div className="si-info-row">
+                <div className="si-info-label">
+                  Phone / WhatsApp
+                </div>
+
+                <div className="si-info-val">
+                  <a href="tel:03212910823">03212910823</a>
+                </div>
+              </div>
+
+              <div className="si-info-row">
+                <div className="si-info-label">Email</div>
+
+                <div className="si-info-val">
+                  <a href="mailto:sales@shakeelintl.com">
+                    sales@shakeelintl.com
+                  </a>
+                </div>
+              </div>
+
+              <div className="si-info-row">
+                <div className="si-info-label">Office</div>
+
+                <div className="si-info-val">
+                  Sargodha, Punjab, Pakistan
+                </div>
               </div>
             </div>
 
-            <div
-              className="px-6 py-3 text-center text-base font-medium"
-              style={{ backgroundColor: "#f8c8bd", color: "#1a1a1a" }}
-            >
-              Email
-            </div>
-            <div className="flex items-center gap-3 px-6 py-4">
-              <Mail className="h-6 w-6" style={{ color: "#e88a7a" }} />
-              <div className="text-sm">
-                <div className="font-semibold text-gray-900">Email:</div>
-                <div className="text-gray-700">info@shakeelinternational.com</div>
+            <div className="si-social-card">
+              <div className="si-info-label">
+                Follow Us
+              </div>
+
+              <div className="si-social-links">
+                <a href="#" className="si-social-btn">
+                  Facebook
+                </a>
+
+                <a href="#" className="si-social-btn">
+                  Instagram
+                </a>
+
+                <a href="#" className="si-social-btn">
+                  LinkedIn
+                </a>
               </div>
             </div>
-
-            <div
-              className="px-6 py-3 text-center text-base font-medium"
-              style={{ backgroundColor: "#f8c8bd", color: "#1a1a1a" }}
-            >
-              Social Media
-            </div>
-            <div className="flex items-center justify-center gap-6 px-6 py-5">
-              <a href="#" aria-label="LinkedIn">
-                <Linkedin className="h-6 w-6" style={{ color: "#e88a7a" }} />
-              </a>
-              <a href="#" aria-label="Instagram">
-                <Instagram className="h-6 w-6" style={{ color: "#e88a7a" }} />
-              </a>
-              <a href="#" aria-label="Facebook">
-                <Facebook className="h-6 w-6" style={{ color: "#e88a7a" }} />
-              </a>
-            </div>
-          </aside>
+          </div>
         </div>
-      </section>
-
-      {/* Map */}
-      <section className="relative px-6 pb-20">
-        <div
-          className="absolute -left-16 bottom-0 h-48 w-48 rounded-full opacity-50"
-          style={{ backgroundColor: "#f8d4cc" }}
-        />
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-lg border border-[#f5c4ba]">
-          <iframe
-            title="Shakeel International Location"
-            src="https://www.google.com/maps?q=Lahore,Pakistan&output=embed"
-            width="100%"
-            height="450"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="block w-full"
-          />
-        </div>
-      </section>
-    </main>
+      </div>
+    </>
   );
 }

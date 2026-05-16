@@ -164,7 +164,7 @@ export default function Home() {
 
         /* HERO */
         .hero {
-          position: relative; height: 480px; overflow: hidden;
+          position: relative; min-height: 480px; overflow: hidden;
           background: linear-gradient(135deg, #3a1c10 0%, #6b3325 40%, #8b4a38 70%, #a0614e 100%);
         }
         .hero-overlay {
@@ -316,8 +316,18 @@ export default function Home() {
         }
 
         @media (max-width: 600px) {
+          .hero { min-height: 560px; }
+          .hero-content { padding: 112px 20px 0; }
+          .hero-title { font-size: 2rem; }
+          .hero-sub { max-width: 100%; }
+          .hero-btns { flex-direction: column; align-items: stretch; }
+          .hero-btns a { text-align: center; }
+          .hero > svg { opacity: 0.1; right: -24% !important; }
+          .section-title { font-size: 1.75rem; margin-bottom: 34px; }
+          .card { padding: 28px 18px 22px; }
           .cards-grid { grid-template-columns: 1fr; }
           .why-grid { grid-template-columns: 1fr; }
+          .testimonial-text { font-size: 1rem; }
         }
       `}</style>
 
@@ -342,8 +352,8 @@ export default function Home() {
             Authentic, handcrafted pink salt products for wellness and decor, delivered globally.
           </p>
           <div className="hero-btns">
-            <a href="#" className="btn-primary">Get a Quote</a>
-            <a href="#" className="btn-outline">View Products</a>
+            <a href="/contact" className="btn-primary">Get a Quote</a>
+            <a href="/products" className="btn-outline">View Products</a>
           </div>
         </div>
       </section>

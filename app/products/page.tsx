@@ -1,7 +1,17 @@
-export default function Products() {
+import Products from "@/components/Products";
+import GlobalExport from "@/components/GlobalExport";
+
+export const metadata = {
+  title: "Products & Global Export — Shakeel International",
+  description:
+    "Premium Himalayan pink salt products and worldwide export services by Shakeel International.",
+};
+
+export default function Page() {
   return (
-    <main className="center-page">
-      <h1>Product Page</h1>
+    <main>
+      <Products />
+      <GlobalExport />
     </main>
   );
 }

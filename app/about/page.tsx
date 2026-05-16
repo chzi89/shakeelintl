@@ -11,7 +11,7 @@ export default function AboutPage() {
   return (
     <main className="bg-white text-neutral-900 font-serif">
       {/* Hero */}
-      <section className="relative h-[78vh] `min-h-[520px] w-full overflow-hidden">
+      <section className="relative h-[78vh] min-h-[520px] w-full overflow-hidden">
         <Image
           src="/hero-salt.jpg"
           alt="Workers harvesting pink Himalayan salt"
@@ -20,9 +20,9 @@ export default function AboutPage() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 `bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
-        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-center px-6 text-white">
-          <h1 className="max-w-2xl text-4xl leading-tight md:text-5xl lg:text-6xl">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-center px-5 pt-20 sm:px-6 text-white">
+          <h1 className="max-w-2xl text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
             Our Heritage, Your Health.
             <br />
             The Essence of Himalayan Pink Salt.
@@ -39,8 +39,8 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-5xl px-6">
+      <section className="bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-5 sm:px-6">
           <h2 className="text-center text-3xl md:text-4xl">Our Mission &amp; Vision</h2>
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {[
@@ -68,7 +68,7 @@ export default function AboutPage() {
             ].map((c) => (
               <div
                 key={c.title}
-                className="rounded-md bg-[#f1e6d8] px-8 py-10 text-center"
+                className="rounded-md bg-[#f1e6d8] px-6 py-8 sm:px-8 sm:py-10 text-center"
               >
                 <div className="mx-auto flex justify-center text-neutral-700">{c.icon}</div>
                 <h3 className="mt-5 text-xl">{c.title}</h3>
@@ -82,8 +82,8 @@ export default function AboutPage() {
       </section>
 
       {/* Origins & Benefits */}
-      <section className="bg-[#faf6f0] py-20">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 md:grid-cols-2">
+      <section className="bg-[#faf6f0] py-16 sm:py-20">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 sm:gap-12 px-5 sm:px-6 md:grid-cols-2">
           <div className="overflow-hidden rounded-md">
             <Image
               src="/salt-spoon.jpg"
@@ -108,7 +108,7 @@ export default function AboutPage() {
                 "Supports electrolyte balance and overall well-being.",
               ].map((item) => (
                 <li key={item} className="flex gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 `flex-shrink-0 rounded-full bg-neutral-800" />
+                  <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-neutral-800" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -118,8 +118,8 @@ export default function AboutPage() {
       </section>
 
       {/* Global Reach */}
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-5xl px-6 text-center">
+      <section className="bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-5 sm:px-6 text-center">
           <h2 className="text-3xl md:text-4xl">Our Global Reach</h2>
           <div className="mt-10">
             <Image
