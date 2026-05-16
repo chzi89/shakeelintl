@@ -10,8 +10,14 @@ export const metadata = {
 export default function Page() {
   return (
     <main>
-      <Products />
-      <GlobalExport />
+      <h3>shakeelintel</h3>
+      
+        <Products />
+      
+      
+        <GlobalExport />
+
+      
     </main>
   );
 }
